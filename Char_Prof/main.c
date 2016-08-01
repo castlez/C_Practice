@@ -2,5 +2,6 @@
 #include <stdio.h>
 
 void main(){
-	printf("hello world!");	
+	printf("Greetings, welcome to Character Profile...r\n");
+		
 }
