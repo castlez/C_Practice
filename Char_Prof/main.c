@@ -40,23 +40,34 @@ void create_character(){
     printf("\nName >> ");
     scanf("%s", ntemp);
 
-    char *itemp[10] = malloc(10*256*sizeof(char));
+    char **itemp = malloc(10*sizeof(char*));
     int i;
+    char c; //for clearing the input buffer
     for(i = 0 ; i < 10;i++){//10 inven slots
-        printf("Item %d (%d left)",i+1,10-i);
+        itemp[i] = malloc(256*sizeof(char));
+        printf("Item %d (%d left, 'done' to finish) >> ",i+1,10-i);
         scanf("%s",itemp[i]);
+        while((c = getchar()) != '\n' && c != EOF); 
+        if(strcmp("done",itemp[i])==0){
+            while((c = getchar()) != '\n' && c != EOF); 
+            break;
+        }
+        printf("ADDING %s\n", itemp[i]);
     }
 
     sv_character(ntemp, itemp);
-    prinf("\n|DONE|\n");
+    printf("\n|DONE|\n");
 
 }
 
-void sv_character(char na[], char *inv[]){
-    FILE * fil = fopen("char_list.txt", "w");
+void sv_character(char na[], char **inv){
+    FILE * fil = fopen("char_list.txt", "a");
     fprintf(fil, "\n%s\n", na);
     int i;
     for(i = 0;i<sizeof(inv);i++){
+        if(strcmp("done", inv[i])==0){
+            break;
+        }
         fprintf(fil, "%s\n", inv[i]);
     }
     fclose(fil);
