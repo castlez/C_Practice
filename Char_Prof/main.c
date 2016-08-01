@@ -10,6 +10,7 @@ struct character {
 //prototypes silly
 void create_character();
 void sv_character(char[], char*[]);
+void list_characters();
 void main(){
     
     printf("Greetings, welcome to Character Profile...r\n"\
@@ -27,12 +28,26 @@ void main(){
             create_character();
             break;
         case '2' :
-            printf("TODO 2\n");
+            list_characters();
             break;
         case '3' : 
             printf("bye\n");
             return;
     }   
+}
+
+void list_characters(){
+    FILE * clist = fopen("char_list.txt", "r");
+    if(!clist){
+        return;
+    }
+    char * line;
+    size_t len = 0;
+    ssize_t read;
+    while((read = getline(&line, &len, clist)) != -1){
+        printf("%s\n", line);
+    }
+
 }
 
 void create_character(){
@@ -49,7 +64,6 @@ void create_character(){
         scanf("%s",itemp[i]);
         while((c = getchar()) != '\n' && c != EOF); 
         if(strcmp("done",itemp[i])==0){
-            while((c = getchar()) != '\n' && c != EOF); 
             break;
         }
         printf("ADDING %s\n", itemp[i]);
