@@ -13,27 +13,32 @@ void sv_character(char[], char*[]);
 void list_characters();
 void main(){
     
-    printf("Greetings, welcome to Character Profile...r\n"\
-            "Please select an option:\n"\
-            "1. Create Character\n"\
-            "2. See Characters\n"\
-            "3. Exit\n"
-          );
-    
-    printf(">> ");
-    char ans = getchar();
+    char ans;
+    char c; //for clearing input buffer
+    while (1){
+        printf("Greetings, welcome to Character Profile...r\n"\
+                "Please select an option:\n"\
+                "1. Create Character\n"\
+                "2. See Characters\n"\
+                "3. Exit\n"
+              );
+        
+        printf(">> ");
+        ans = getchar();
+        while((c = getchar()) != '\n' && c != EOF); 
 
-    switch(ans) {
-        case '1' :
-            create_character();
-            break;
-        case '2' :
-            list_characters();
-            break;
-        case '3' : 
-            printf("bye\n");
-            return;
-    }   
+        switch(ans) {
+            case '1' :
+                create_character();
+                break;
+            case '2' :
+                list_characters();
+                break;
+            case '3' : 
+                printf("bye\n");
+                return;
+        }
+    }
 }
 
 void list_characters(){
